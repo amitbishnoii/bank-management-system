@@ -14,4 +14,20 @@ router.post("/login", (req, res) => {
     }
 })
 
+router.post("/register", (req, res) => {
+    const {firstName, lastName, username, phone, email, password} = req.body
+    console.log(req.body);
+
+    if (!username || !password || !firstName || !lastName || !phone || !email) {
+        return res.json({message: "Registration Failed, All fields are required", success: false})        
+    }
+
+    let account_number = Math.floor(1000000000 + Math.random() * 9000000000);
+       return res.json({
+        message: "Account created successfully",
+        success: true,
+        account_number,
+    });
+})
+
 export default router

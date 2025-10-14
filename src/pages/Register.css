@@ -1,32 +1,32 @@
-.login {
+.register {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 70vh;
 }
 
-.login-box {
+.register-box {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 60px;
     gap: 20px;
     background-color: rgb(75, 75, 75);
     border-radius: 10px;
 }
 
-.login-box h3 {
+.register-box h3 {
     font-size: 32px;
     color: white;
 }
 
-.login-box .buttons-container {
+.register-box .buttons-container {
     display: flex;
     justify-content: space-around;
 }
 
-.login-box input {
+.register-box input {
     padding-left: 5px;
     font-size: 12px;
     height: 25px;
@@ -39,17 +39,16 @@
     transition: 0.2s;
 }
 
-.login-box input:focus {
-    /* outline: 2px solid#ccc; */
+.register-box input:focus {
     box-shadow: 0 0 4px #ffffff;
 }
 
-.login-box form {
+.register-box form {
     display: flex;
     flex-direction: column;
 }
 
-.login-box button{
+.register-box button{
     width: 90px;
     height: 30px;
     border: none;
@@ -59,4 +58,9 @@
     font-size: 14px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+.error-message {
+    color: red;
+    font-size: 10px;
 }
