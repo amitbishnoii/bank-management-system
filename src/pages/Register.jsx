@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import "./Register.css"
 
 const Register = () => {
@@ -8,6 +9,7 @@ const Register = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         console.log('received data:', data);
@@ -89,8 +91,8 @@ const Register = () => {
                     <br />
 
                     <div className="buttons-container">
-                        <button type="submit">Create</button>
-                        <button type="button">Log-in</button>
+                        <button type="submit">Create Accont</button>
+                        <button onClick={() => navigate("/login")}>Log-in</button>
                     </div>
                 </form>
 
