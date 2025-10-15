@@ -18,6 +18,11 @@ mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true
 }).then(() => console.log('mongodb connected')).catch(err => { console.log(err) })
 
+const db = mongoose.connection;
+db.once("open", () => {
+  console.log("Connected to DB:", db.name);
+});
+
 app.get("/", (req, res) => {
     res.send("hello world");
 })
