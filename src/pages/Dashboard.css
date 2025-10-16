@@ -1,0 +1,102 @@
+.dashboard {
+    display: flex;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    min-height: 100vh;
+    background-color: black;
+    color: white;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    height: 80px;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.heading span {
+    cursor: pointer;
+}
+
+.heading .logo {
+    font-size: 40px;
+    color: #3b82f6;
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.heading .logo:hover {
+    cursor: pointer;
+    transform: rotate(10deg) scale(1.1);
+    color: #06b6d4;
+}
+
+.sidebar-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.sidebar-buttons button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 10px;
+    background-color: black;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    width: 180px;
+    height: 60px;
+    border-radius: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.sidebar-buttons button:hover {
+    background-color: rgb(41, 41, 41);
+    transform: scale(1.1);
+    color: #06b6d4;
+}
+
+.sidebar-buttons button:active {
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    transform: scale(1.03);
+}
+
+.main {
+    width: calc(100vw - 250px);
+    height: 100vh;
+    background-color: blue;
+    padding: 30px;
+}
+
+.card-container {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    width: 150px;
+    height: 150px;
+    background-color: red;
+    border-radius: 10px;
+}
