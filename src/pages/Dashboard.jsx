@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Dashboard.css"
 import { BsBank } from "react-icons/bs";
 import { TbTransactionRupee } from "react-icons/tb";
@@ -8,18 +8,12 @@ import { IoMdSettings } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
 
 const Dashboard = () => {
-  const user = {
-    name: "Amit Bishnoi",
-    accountNumber: "1234567890",
-    balance: 12500,
-    memberSince: "2023-05-14",
-  };
-
-  const transactions = [
-    { id: 1, type: "Deposit", amount: 2000, date: "2025-10-10" },
-    { id: 2, type: "Withdraw", amount: 500, date: "2025-10-12" },
-    { id: 3, type: "Transfer", amount: 1000, date: "2025-10-13" },
-  ];
+  const [balance, setbalance] = useState(0);
+  const [transactions, settransactions] = useState([
+    
+  ]);
+  const accountNumber = 123123123;
+  const memberSince = 121212
 
   return (
     <div className="dashboard">
@@ -40,15 +34,15 @@ const Dashboard = () => {
         <h2>Dashboard</h2>
         <div className="card-container">
           <div className="card balance">
-            ₹{user.balance}
+            ₹{balance}
             <p>Balance</p>
           </div>
           <div className="card acc-num">
-            {user.accountNumber}
+            {accountNumber}
             <p>Account Number</p>
           </div>
           <div className="card date-joined">
-            {user.memberSince}
+            {memberSince}
             <p>Date Joined</p>
           </div>
         </div>

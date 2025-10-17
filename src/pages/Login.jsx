@@ -12,13 +12,16 @@ const Login = () => {
     const navigate = useNavigate()
 
     const onSubmit = async (data) => {
-        let res = await fetch("http://localhost:3000/api/login", {
+        let res = await fetch("http://localhost:3000/user/login", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }
         });
         let r = await res.json()
         console.log("response", r);
+        if (r.success) {
+            navigate(`/${r.user.username}/dashboard`)
+        }
     }
 
     return (
