@@ -13,7 +13,7 @@ const Register = () => {
 
     const onSubmit = async (data) => {
         console.log('received data:', data);
-        let res = await fetch("http://localhost:3000/api/register", {
+        let res = await fetch("http://localhost:3000/user/register", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }

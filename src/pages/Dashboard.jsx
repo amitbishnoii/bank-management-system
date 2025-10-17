@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Dashboard.css"
 import { BsBank } from "react-icons/bs";
 import { TbTransactionRupee } from "react-icons/tb";
@@ -6,14 +6,28 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { MdPayment } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
+import { useParams } from 'react-router-dom';
 
 const Dashboard = () => {
-  const [balance, setbalance] = useState(0);
+  const [userData, setuserData] = useState(null)
+  const [Balance, setBalance] = useState(0)
   const [transactions, settransactions] = useState([
-    
+
   ]);
-  const accountNumber = 123123123;
-  const memberSince = 121212
+  const { username } = useParams()
+
+  
+  const getData = async () => {
+    let res = await fetch(`http://localhost:3000/user/${username}/dashboard`);
+    let r = await res.json()
+    console.log("response from getdata", r);
+    setuserData(r.user)
+    console.log("fetched user ", r.user);
+    console.log("userdata from getdata", userData);
+  }
+  useEffect(() => {
+    getData()
+  }, [])
 
   return (
     <div className="dashboard">
@@ -34,15 +48,15 @@ const Dashboard = () => {
         <h2>Dashboard</h2>
         <div className="card-container">
           <div className="card balance">
-            ₹{balance}
+            {userData ? `₹${userData.balance}` : "Loading..."}
             <p>Balance</p>
           </div>
           <div className="card acc-num">
-            {accountNumber}
+            {userData ? `₹${userData.email}` : "Loading..."}
             <p>Account Number</p>
           </div>
           <div className="card date-joined">
-            {memberSince}
+            {userData ? `₹${userData.createdAt}` : "Loading..."}
             <p>Date Joined</p>
           </div>
         </div>
@@ -78,7 +92,7 @@ const Dashboard = () => {
           </table>
         </div>
         <div className="action-buttons">
-          <button><span>Withdraw</span></button>
+          <button onClick={getData}><span>Withdraw</span></button>
           <button><span>Deposit</span></button>
           <button><span>Transfer</span></button>
         </div>
