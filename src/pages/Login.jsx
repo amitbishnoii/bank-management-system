@@ -18,7 +18,6 @@ const Login = () => {
             headers: { "Content-Type": "application/json" }
         });
         let r = await res.json()
-        console.log("response", r);
         if (r.success) {
             navigate(`/${r.user.username}/dashboard`)
         }

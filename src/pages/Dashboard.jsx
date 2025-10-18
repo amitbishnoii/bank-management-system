@@ -20,10 +20,7 @@ const Dashboard = () => {
   const getData = async () => {
     let res = await fetch(`http://localhost:3000/user/${username}/dashboard`);
     let r = await res.json()
-    console.log("response from getdata", r);
     setuserData(r.user)
-    console.log("fetched user ", r.user);
-    console.log("userdata from getdata", userData);
   }
   useEffect(() => {
     getData()
