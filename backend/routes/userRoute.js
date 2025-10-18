@@ -6,6 +6,9 @@ const router = express.Router()
 router.get("/:username/dashboard", async (req, res) => {
     try {
         const user = await User.findOne({username: req.params.username})
+        if (!user) {
+            res.status(404).json({message: "User not found!", success: false})
+        }
         res.status(200).json({success: true, user})        
     } catch (error) {
         res.status(500).json({message: error.message})

@@ -14,6 +14,16 @@ const userSchema = new Schema({
         unique: [true, "Email is already taken."],
         match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Email is invalid"]
     },
+    firstName: {
+        type: String,
+        required: [true, "First Name is required!"],
+        minLength: [2, "Min Length is 2 for firstname."]
+    },
+    lastName: {
+        type: String,
+        required: [true, "Last Name is required!"],
+        minLength: [2, "Min Length is 2 for lastname."]
+    },
     password: {
         type: String,
         required: [true, "Password is required."],
@@ -24,7 +34,15 @@ const userSchema = new Schema({
         ]
     },
     balance: { type: Number, default: 0 },
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    accountNumber: { type: Number, unique: true },
+});
+
+userSchema.pre("save", function (next) {
+    if (!this.accountNumber) {
+        this.accountNumber = Math.floor(10000000 + Math.random() * 90000000);
+    }
+    next();
 });
 
 const User = mongoose.model("User", userSchema);

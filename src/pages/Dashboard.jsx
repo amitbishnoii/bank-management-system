@@ -16,7 +16,7 @@ const Dashboard = () => {
   ]);
   const { username } = useParams()
 
-  
+
   const getData = async () => {
     let res = await fetch(`http://localhost:3000/user/${username}/dashboard`);
     let r = await res.json()
@@ -52,11 +52,19 @@ const Dashboard = () => {
             <p>Balance</p>
           </div>
           <div className="card acc-num">
-            {userData ? `₹${userData.email}` : "Loading..."}
+            {userData ? `${userData.accountNumber}` : "Loading..."}
             <p>Account Number</p>
           </div>
           <div className="card date-joined">
-            {userData ? `₹${userData.createdAt}` : "Loading..."}
+            {userData ? new Date(userData.createdAt).toLocaleString("en-IN", {
+              timeZone: "Asia/Kolkata",
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true
+            }) : "Loading..."}
             <p>Date Joined</p>
           </div>
         </div>

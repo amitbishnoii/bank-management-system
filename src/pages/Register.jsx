@@ -12,7 +12,7 @@ const Register = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-        console.log('received data:', data);
+        console.log("request data: ", data);
         let res = await fetch("http://localhost:3000/user/register", {
             method: "POST",
             body: JSON.stringify(data),
@@ -20,6 +20,10 @@ const Register = () => {
         })
         let r = await res.json()
         console.log(r);
+        console.log(data.username);
+        if (r.success) {
+            navigate(`/${data.username}/dashboard`)
+        }
     }
 
     return (
@@ -74,20 +78,23 @@ const Register = () => {
 
                     <input {...register('phone', {
                         required: true,
-                        pattern: /^[0-9]{10}$/
+                        pattern: /^[0-9]{10}$/,
+                        maxLength: 10,
+                        minLength: 10
                     })} placeholder='Phone Number' />
                     {errors.phone?.type === 'required' && <p className="error-message">Phone Number is required</p>}
                     {errors.phone?.type === 'pattern' && <p className="error-message">Enter Numbers only</p>}
+                    {errors.phone?.type === 'maxLength' || errors.phone?.type === 'maxLength' && <p className="error-message">Enter 10 digit phone number without +91</p>}
                     <br />
 
                     <input {...register('password', {
                         required: true,
                         minLength: 8,
-                        pattern: /^(?=.*\d).{6,}$/
+                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/
                     })} placeholder='Password' />
                     {errors.password?.type === 'required' && <p className="error-message">Password is required</p>}
                     {errors.password?.type === 'minLength' && <p className="error-message">Password should be at least 8 characters</p>}
-                    {errors.password?.type === 'pattern' && <p className="error-message">Password should include at least one number</p>}
+                    {errors.password?.type === 'pattern' && <p className="error-message">Password must have uppercase, lowercase, number, and special character</p>}
                     <br />
 
                     <div className="buttons-container">
