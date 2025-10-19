@@ -1,9 +1,10 @@
 import React from "react";
 import { BsBank } from "react-icons/bs";
 import { MdSpaceDashboard, MdPayment } from "react-icons/md";
-import { TbTransactionRupee } from "react-icons/tb";
 import { IoMdSettings, IoIosLogOut } from "react-icons/io";
+import { FaGithub } from "react-icons/fa";
 import "./Sidebar.css"
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({className}) => {
 
@@ -17,9 +18,8 @@ const Sidebar = ({className}) => {
 
       <div className="sidebar-buttons">
         <button><MdSpaceDashboard size={20} /> Dashboard</button>
-        <button><TbTransactionRupee size={20} /> Transaction</button>
         <button><MdPayment size={20} /> Payments</button>
-        <button><IoMdSettings size={20} /> Settings</button>
+        <button><FaGithub size={20} /><a href="https://github.com/amitbishnoii/bank-management-system"></a>Github</button>
         <button><IoIosLogOut size={20} /> Logout</button>
       </div>
     </div>

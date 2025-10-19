@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Dashboard.css"
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 
 const Dashboard = () => {
@@ -9,7 +9,11 @@ const Dashboard = () => {
 
   ]);
   const { username } = useParams()
+  const navigate = useNavigate()
 
+  const handleDeposit = () => {
+    navigate(`/${userData.username}/deposit`)
+  }
 
   const getData = async () => {
     let res = await fetch(`http://localhost:3000/user/${username}/dashboard`);
@@ -79,7 +83,7 @@ const Dashboard = () => {
         </div>
         <div className="action-buttons">
           <button><span>Withdraw</span></button>
-          <button><span>Deposit</span></button>
+          <button onClick={handleDeposit}><span>Deposit</span></button>
           <button><span>Transfer</span></button>
         </div>
       </div>

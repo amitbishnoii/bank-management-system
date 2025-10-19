@@ -28,11 +28,13 @@ function App() {
               <Dashboard />
             </Layout>
           } />
+          <Route path="/:username/deposit" element={
+            <Layout>
+              <Deposit />
+            </Layout>
+          } />
         </Routes>
       </Router>
-      <Layout>
-        <Deposit />
-      </Layout>
     </>
   )
 }
