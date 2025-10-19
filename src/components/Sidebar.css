@@ -1,44 +1,49 @@
+
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    min-height: 100vh;
-    background-color: black;
-    color: white;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  min-height: 100vh;
+  background-color: black;
+  color: white;
+  transition: transform 0.3s ease;
+  box-sizing: border-box;
+  z-index: 1500;
 }
 
 .sidebar-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .sidebar-buttons button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding-left: 10px;
-    background-color: black;
-    border: none;
-    color: white;
-    font-weight: 700;
-    font-size: 16px;
-    width: 180px;
-    height: 60px;
-    border-radius: 10px;
-    transition: all 0.3s;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 10px;
+  background-color: black;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  width: 180px;
+  height: 60px;
+  border-radius: 10px;
+  transition: all 0.3s;
+  cursor: pointer;
 }
 
 .sidebar-buttons button:hover {
-    background-color: rgb(41, 41, 41);
-    transform: scale(1.1);
-    color: #06b6d4;
+  background-color: rgb(41, 41, 41);
+  transform: scale(1.1);
+  color: #06b6d4;
 }
 
 .sidebar-buttons button:active {
-    font-weight: 600;
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-    transform: scale(1.03);
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+  transform: scale(1.03);
 }
+

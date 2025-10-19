@@ -1,38 +1,26 @@
 import React from "react";
-import "./Sidebar.css"
 import { BsBank } from "react-icons/bs";
 import { MdSpaceDashboard, MdPayment } from "react-icons/md";
 import { TbTransactionRupee } from "react-icons/tb";
 import { IoMdSettings, IoIosLogOut } from "react-icons/io";
+import "./Sidebar.css"
 
-const Sidebar = () => {
+const Sidebar = ({className}) => {
+
   return (
-    <div className="sidebar">
+
+    <div className={`sidebar ${className ? className : ""}`}>
       <div className="heading">
-        <BsBank className='logo' color='white' size={"24px"} />
+        <BsBank className="logo" size={24} color="white" />
         <span>Bank App</span>
       </div>
+
       <div className="sidebar-buttons">
-        <button>
-          <MdSpaceDashboard className='button-icon' color='white' size={"20px"} />
-          Dashboard
-        </button>
-        <button>
-          <TbTransactionRupee className='button-icon' color='white' size={"20px"} />
-          Transaction
-        </button>
-        <button>
-          <MdPayment className='button-icon' color='white' size={"20px"} />
-          Payments
-        </button>
-        <button>
-          <IoMdSettings className='button-icon' color='white' size={"20px"} />
-          Settings
-        </button>
-        <button>
-          <IoIosLogOut className='button-icon' color='white' size={"20px"} />
-          Logout
-        </button>
+        <button><MdSpaceDashboard size={20} /> Dashboard</button>
+        <button><TbTransactionRupee size={20} /> Transaction</button>
+        <button><MdPayment size={20} /> Payments</button>
+        <button><IoMdSettings size={20} /> Settings</button>
+        <button><IoIosLogOut size={20} /> Logout</button>
       </div>
     </div>
   );

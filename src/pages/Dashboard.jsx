@@ -22,7 +22,6 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <Sidebar />
       <div className="main">
         <h2>HELLO, {userData ? userData.firstName.toUpperCase() + " " + userData.lastName.toUpperCase() : "Loading..."}</h2>
         <div className="card-container">
