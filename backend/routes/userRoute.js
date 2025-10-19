@@ -4,12 +4,25 @@ import bcrypt from "bcrypt"
 
 const router = express.Router()
 
+router.get("/:username", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        if (!user) {
+            res.status(404).json({ message: "User not found!", success: false })
+        } else {
+            res.status(200).json({ user, success: true })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message, success: false })
+    }
+})
+
 router.get("/:username/dashboard", async (req, res) => {
     try {
-        const user = await User.findOne({username: req.params.username})
-        res.status(200).json({success: true, user})        
+        const user = await User.findOne({ username: req.params.username })
+        res.status(200).json({ success: true, user })
     } catch (error) {
-        res.status(500).json({message: error.message})
+        res.status(500).json({ message: error.message })
     }
 })
 
@@ -17,7 +30,7 @@ router.post("/register", async (req, res) => {
     try {
         const user = new User(req.body)
         if (!user) {
-            res.status(404).json({message: "User not found!", success: false})
+            res.status(404).json({ message: "User not found!", success: false })
         }
         else {
             user.password = await bcrypt.hash(user.password, 10)
@@ -26,6 +39,25 @@ router.post("/register", async (req, res) => {
         }
     } catch (err) {
         res.status(500).json({ message: err.message, success: false })
+    }
+})
+
+router.post("/:username/deposit", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        if (!user) {
+            res.status(404).json({ message: "User not found!", success: false })
+        } else {
+            const updateAmount = req.body.amount;
+            const updatedUser = await User.findOneAndUpdate(
+                { username: req.params.username },
+                { $inc: { balance: req.body.amount } },
+                { new: true }
+            );
+            res.status(200).json({ message: "Deposit Success!", current_balance: updatedUser.balance, success: true, dekhle: user.balance, amountkya: updateAmount })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message, success: false })
     }
 })
 

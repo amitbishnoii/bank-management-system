@@ -6,13 +6,20 @@ const DepositPage = () => {
   const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState(0);
   const [message, setMessage] = useState("");
+  const username = "skbishnoi"
 
   useEffect(() => {
-    // TODO: Replace with API call to get user data
-    setBalance(5000);
+    async function fetchdata() {
+        const res = await fetch(`http://localhost:3000/user/${username}/`)
+        const r = await res.json();
+        setBalance(r.user.balance);
+    }
+    fetchdata()
   }, []);
 
-  const handleDeposit = () => {
+  const handleDeposit = async () => {
+    const res = await fetch(`http://localhost:3000/user/${username}/deposit/`)
+    const r = await res.json();
     setBalance(balance + Number(amount));
     setMessage(`₹${amount} deposited successfully!`);
     setAmount("");

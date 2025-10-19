@@ -31,8 +31,7 @@ function App() {
         </Routes>
       </Router>
       <Layout>
-
-      <Deposit />
+        <Deposit />
       </Layout>
     </>
   )
