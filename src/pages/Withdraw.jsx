@@ -1,21 +1,26 @@
-// Withdraw.jsx
 import React, { useState } from "react";
-import Sidebar from "../components/Sidebar"; // make sure the path is correct
-import "./Withdraw.css"; // separate CSS file
+import Sidebar from "../components/Sidebar";
+import "./Withdraw.css";
+import { useParams } from "react-router-dom";
 
 const Withdraw = () => {
   const [amount, setAmount] = useState("");
+  const { username } = useParams()
 
-  const handleWithdraw = (e) => {
+  const handleWithdraw = async (e) => {
     e.preventDefault();
-    // Logic will be added later
+    const res = await fetch(`http://localhost:3000/user/${username}/withdraw/`, {
+      method: "POST",
+      body: JSON.stringify({ amount }),
+      headers: { "Content-Type": "application/json" }
+    });
+    // const r = await res.json();
     alert(`Withdraw request for ₹${amount} submitted!`);
     setAmount("");
   };
 
   return (
     <div className="withdraw-container">
-      <Sidebar />
       <div className="withdraw-page">
         <div className="withdraw-card">
           <h2>Withdraw Money</h2>
@@ -30,7 +35,7 @@ const Withdraw = () => {
                 required
               />
             </div>
-            <button type="submit">Withdraw</button>
+            <button className="submit-button" type="submit">Withdraw</button>
           </form>
         </div>
       </div>

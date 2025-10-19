@@ -1,69 +1,106 @@
-/* Withdraw.css */
 .withdraw-container {
   display: flex;
+  justify-content:center;
+  align-items:center;
+  min-height: 100vh;
+  background: #0f172a;
 }
 
 .withdraw-page {
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   min-height: 100vh;
-  background-color: #f3f4f6; /* light gray */
-  padding: 20px;
 }
 
 .withdraw-card {
-  background-color: #fff;
+  background: linear-gradient(145deg, #1f2937, #111827);
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  margin-top: 60px;
+  margin-left: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   width: 100%;
   max-width: 400px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.withdraw-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.4);
 }
 
 .withdraw-card h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
   text-align: center;
+  color: #f1f5f9;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 .input-group label {
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   font-weight: 500;
+  color: #e2e8f0;
 }
 
 .input-group input {
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
+  padding: 12px;
+  border: 1px solid #334155;
+  border-radius: 8px;
   outline: none;
+  background-color: #1e293b;
+  color: #f1f5f9;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input::placeholder {
+  color: #94a3b8;
 }
 
 .input-group input:focus {
   border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
-button {
+.submit-button {
   width: 100%;
-  padding: 10px;
-  background-color: #3b82f6;
+  padding: 12px;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
   color: white;
   font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
 }
 
-button:hover {
-  background-color: #2563eb;
+.submit-button:hover {
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .withdraw-card {
+    padding: 25px 20px;
+  }
+
+  .withdraw-card h2 {
+    width: 90%;
+    font-size: 22px;
+  }
+
+  .input-group input,
+  .submit-button {
+    padding: 10px;
+  }
 }

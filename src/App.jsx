@@ -14,14 +14,10 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={
-            <Layout>
-              <Login />
-            </Layout>
+            <Login />
           } />
           <Route path="/register" element={
-            <Layout>
-              <Register />
-            </Layout>
+            <Register />
           } />
           <Route path="/:username/dashboard" element={
             <Layout>
@@ -31,6 +27,11 @@ function App() {
           <Route path="/:username/deposit" element={
             <Layout>
               <Deposit />
+            </Layout>
+          } />
+          <Route path="/:username/withdraw" element={
+            <Layout>
+              <Withdraw/>
             </Layout>
           } />
         </Routes>

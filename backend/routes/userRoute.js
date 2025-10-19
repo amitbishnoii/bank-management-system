@@ -48,13 +48,30 @@ router.post("/:username/deposit", async (req, res) => {
         if (!user) {
             res.status(404).json({ message: "User not found!", success: false })
         } else {
-            const updateAmount = req.body.amount;
             const updatedUser = await User.findOneAndUpdate(
                 { username: req.params.username },
                 { $inc: { balance: req.body.amount } },
                 { new: true }
             );
-            res.status(200).json({ message: "Deposit Success!", current_balance: updatedUser.balance, success: true, dekhle: user.balance, amountkya: updateAmount })
+            res.status(200).json({ message: "Deposit Success!", current_balance: updatedUser.balance, success: true })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message, success: false })
+    }
+})
+
+router.post("/:username/withdraw", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        if (!user) {
+            res.status(404).json({ message: "User not found!", success: false })
+        } else {
+            const updatedUser = await User.findOneAndUpdate(
+                { username: req.params.username },
+                { $inc: { balance: -req.body.amount } },
+                { new: true }
+            );
+            res.status(200).json({ message: "Withdraw Success!", current_balance: updatedUser.balance, success: true })
         }
     } catch (error) {
         res.status(500).json({ message: error.message, success: false })
