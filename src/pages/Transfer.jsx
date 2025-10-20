@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import "../CSS/Transfer.css";
+import { useParams } from 'react-router-dom';
 
 const Transfer = () => {
     const [accountNumber, setaccountNumber] = useState()
     const [transferAmount, settransferAmount] = useState()
-    const username = "avrittoor"
+    const { username } = useParams()
 
     const handleClick = async () => {
         console.log(transferAmount);

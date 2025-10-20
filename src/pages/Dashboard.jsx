@@ -28,6 +28,10 @@ const Dashboard = () => {
     navigate(`/${username}/withdraw`)
   }
 
+  const handleTransfer = () => {
+    navigate(`/${username}/transfer`)
+  }
+
   return (
   <div className="dashboard">
     <div className="main">
@@ -88,7 +92,7 @@ const Dashboard = () => {
       <div className="action-buttons">
         <button onClick={handleWithdraw}><span>Withdraw</span></button>
         <button onClick={handleDeposit}><span>Deposit</span></button>
-        <button><span>Transfer</span></button>
+        <button onClick={handleTransfer}><span>Transfer</span></button>
       </div>
     </div>
   </div>

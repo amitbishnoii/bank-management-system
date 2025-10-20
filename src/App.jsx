@@ -34,11 +34,13 @@ function App() {
               <Withdraw/>
             </Layout>
           } />
+          <Route path="/:username/transfer" element={
+            <Layout>
+              <Transfer/>
+            </Layout>
+          } />
         </Routes>
       </Router>
-      <Layout>
-        <Transfer />
-      </Layout>
     </>
   )
 }
