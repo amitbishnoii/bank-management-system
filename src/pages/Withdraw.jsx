@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import "./Withdraw.css";
+import "../CSS/Withdraw.css";
 import { useParams } from "react-router-dom";
 
 const Withdraw = () => {

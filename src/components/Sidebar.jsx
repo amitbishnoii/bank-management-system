@@ -3,7 +3,7 @@ import { BsBank } from "react-icons/bs";
 import { MdSpaceDashboard, MdPayment } from "react-icons/md";
 import { IoMdSettings, IoIosLogOut } from "react-icons/io";
 import { FaGithub } from "react-icons/fa";
-import "./Sidebar.css"
+import "../CSS/Sidebar.css"
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({className}) => {

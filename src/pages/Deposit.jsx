@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
-import "./Deposit.css";
+import "../CSS/Deposit.css";
 import { useParams } from "react-router-dom";
 
 const DepositPage = () => {
