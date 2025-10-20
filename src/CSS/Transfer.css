@@ -1,0 +1,97 @@
+/* Transfer.css */
+
+.transfer-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  min-height: 100vh;
+  background-color: #0f172a;
+}
+
+.transfer-page {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+.transfer-card {
+  background: linear-gradient(145deg, #1f2937, #111827);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.transfer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+}
+
+.transfer-card h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #f1f5f9;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.input-group input {
+  padding: 12px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  outline: none;
+  background-color: #1e293b;
+  color: #f1f5f9;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input::placeholder {
+  color: #94a3b8;
+}
+
+.input-group input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.transfer-card button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+
+.transfer-card button:hover {
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+@media (max-width: 768px) {
+  .transfer-page {
+    justify-content: center;
+    padding-top: 20px;
+  }
+  .transfer-card {
+    max-width: 90%;
+  }
+}

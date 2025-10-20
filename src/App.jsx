@@ -4,7 +4,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Withdraw from "./pages/Withdraw";
-import Sidebar from "./components/Sidebar";
+import Transfer from "./pages/Transfer";
 import Layout from "./components/Layout";
 
 function App() {
@@ -36,6 +36,9 @@ function App() {
           } />
         </Routes>
       </Router>
+      <Layout>
+        <Transfer />
+      </Layout>
     </>
   )
 }

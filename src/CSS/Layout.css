@@ -52,7 +52,6 @@
 
   .hamburger {
     display: none;
-    /* only show on mobile */
     position: fixed;
     top: 12px;
     left: 12px;
@@ -66,21 +65,20 @@
     border: none;
     cursor: pointer;
     align-items: center;
+    padding-bottom: 3px;
     justify-content: center;
     display: flex;
   }
 
   .hamburger.close {
-    padding-bottom: 13px;
     top: 15px;
     right: 15px;
     left: auto;
     background-color: #ef4444;
-    /* red close button */
     color: #fff;
     font-size: 24px;
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     border-radius: 20%;
     display: flex;
     align-items: center;

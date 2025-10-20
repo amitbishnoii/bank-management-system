@@ -97,4 +97,43 @@ router.post("/login", async (req, res) => {
     }
 })
 
+router.post("/:username/transfer", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        // console.log("user to send money: ", user);
+
+        if (user) {
+            const status = await User.findOne({ accountNumber: req.body.accountNumber });
+            // console.log("user to recieve money: ", status);
+            if (status) {
+                console.log(req.body.amount);
+                const withdraw = await User.findOneAndUpdate(
+                    { username: req.params.username },
+                    { $inc: { balance: -req.body.transferAmount } },
+                    { new: true }
+                );
+
+                const deposit = await User.findOneAndUpdate(
+                    { accountNumber: req.body.accountNumber },
+                    { $inc: { balance: req.body.transferAmount } },
+                    { new: true }
+                );
+
+                res.status(200).json({message: "Transfer Success!", withdraw, deposit, success: true})
+
+            }
+
+            else {
+                res.status(404).json({message: "Transfer Failed! Check account number.", success: false})
+            }
+        }
+        else {
+            return res.status(404).json({ message: "User not found", success: false })
+        }
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message, success: false })
+    }
+})
+
 export default router
