@@ -6,7 +6,22 @@ import { FaGithub } from "react-icons/fa";
 import "../CSS/Sidebar.css"
 import { useNavigate } from "react-router-dom";
 
-const Sidebar = ({className}) => {
+const Sidebar = ({className, username}) => {
+
+  const navigate = useNavigate()
+  const userName = username;
+
+  const handleDashboard = () => {
+    navigate(`/${userName}/dashboard`)
+  }
+
+  const handleLogout = () => {
+    navigate("/login")
+  }
+
+  const handleGit = () => {
+    window.open("https://github.com/amitbishnoii/bank-management-system")
+  }
 
   return (
 
@@ -17,10 +32,10 @@ const Sidebar = ({className}) => {
       </div>
 
       <div className="sidebar-buttons">
-        <button><MdSpaceDashboard size={20} /> Dashboard</button>
+        <button onClick={handleDashboard}><MdSpaceDashboard size={20} /> Dashboard</button>
         <button><MdPayment size={20} /> Payments</button>
-        <button><FaGithub size={20} /><a href="https://github.com/amitbishnoii/bank-management-system"></a>Github</button>
-        <button><IoIosLogOut size={20} /> Logout</button>
+        <button onClick={handleGit}><FaGithub size={20} />Github</button>
+        <button onClick={handleLogout}><IoIosLogOut size={20} /> Logout</button>
       </div>
     </div>
   );

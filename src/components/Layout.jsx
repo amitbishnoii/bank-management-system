@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import "../CSS/Layout.css";
+import { useParams } from "react-router-dom";
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { username } = useParams()
 
   useEffect(() => {
     const onResize = () => {
@@ -17,7 +19,11 @@ const Layout = ({ children }) => {
 
   return (
     <div className="app-layout">
-      <Sidebar className={`sidebar ${sidebarOpen ? "active" : ""}`} />
+      <Sidebar
+        className={`sidebar ${sidebarOpen ? "active" : ""}`}
+        username={username}
+      />
+
 
       {sidebarOpen && (
         <div
