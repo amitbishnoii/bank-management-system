@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "../CSS/Dashboard.css"
 import { useNavigate, useParams } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
 
 const Dashboard = () => {
   const [userData, setuserData] = useState(null)

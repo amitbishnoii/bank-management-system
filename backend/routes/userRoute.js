@@ -30,8 +30,8 @@ router.get("/:username/transactions", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username })
 
-        if(!user) {
-            res.status(404).json({message: "User not found!", success: false});
+        if (!user) {
+            res.status(404).json({ message: "User not found!", success: false });
         }
         else {
             res.status(200).json({ success: true, transactions: user.transactions })
@@ -64,12 +64,22 @@ router.post("/:username/deposit", async (req, res) => {
         if (!user) {
             res.status(404).json({ message: "User not found!", success: false })
         } else {
-            const updatedUser = await User.findOneAndUpdate(
+            await User.findOneAndUpdate(
                 { username: req.params.username },
-                { $inc: { balance: req.body.amount } },
+                {
+                    $inc: { balance: req.body.amount },
+                    $push: {
+                        transactions: {
+                            type: "deposit",
+                            amount: req.body.amount,
+                            recipient: "Self",
+                            balanceAfter: user.balance + req.body.amount
+                        }
+                    }
+                },
                 { new: true }
             );
-            res.status(200).json({ message: "Deposit Success!", current_balance: updatedUser.balance, success: true })
+            res.status(200).json({ message: "Deposit Success!", current_balance: user.balance, success: true })
         }
     } catch (error) {
         res.status(500).json({ message: error.message, success: false })
@@ -82,11 +92,6 @@ router.post("/:username/withdraw", async (req, res) => {
         if (!user) {
             res.status(404).json({ message: "User not found!", success: false })
         } else {
-            const updatedUser = await User.findOneAndUpdate(
-                { username: req.params.username },
-                { $inc: { balance: -req.body.amount } },
-                { new: true }
-            );
             await User.findOneAndUpdate(
                 { username: req.params.username },
                 {
@@ -102,7 +107,7 @@ router.post("/:username/withdraw", async (req, res) => {
                 },
                 { new: true }
             );
-            res.status(200).json({ message: "Withdraw Success!", current_balance: updatedUser.balance, success: true })
+            res.status(200).json({ message: "Withdraw Success!", current_balance: user.balance, success: true })
         }
     } catch (error) {
         res.status(500).json({ message: error.message, success: false })
@@ -135,16 +140,35 @@ router.post("/:username/transfer", async (req, res) => {
         if (user) {
             const status = await User.findOne({ accountNumber: req.body.accountNumber });
             if (status) {
-                console.log(req.body.amount);
                 const withdraw = await User.findOneAndUpdate(
                     { username: req.params.username },
-                    { $inc: { balance: -req.body.transferAmount } },
+                    {
+                        $inc: { balance: -req.body.transferAmount },
+                        $push: {
+                            transactions: {
+                                type: "transfer",
+                                amount: req.body.transferAmount,
+                                recipient: req.body.accountNumber,
+                                balanceAfter: user.balance - req.body.transferAmount
+                            }
+                        }
+                    },
                     { new: true }
                 );
 
                 const deposit = await User.findOneAndUpdate(
                     { accountNumber: req.body.accountNumber },
-                    { $inc: { balance: req.body.transferAmount } },
+                    {
+                        $inc: { balance: req.body.transferAmount },
+                        $push: {
+                            transactions: {
+                                type: "recieved",
+                                amount: req.body.transferAmount,
+                                sender: req.params.username,
+                                balanceAfter: user.balance - req.body.transferAmount
+                            }
+                        }
+                    },
                     { new: true }
                 );
 
