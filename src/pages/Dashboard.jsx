@@ -16,8 +16,16 @@ const Dashboard = () => {
     let r = await res.json()
     setuserData(r.user)
   }
+
+  const getTransactions = async () => {
+    const res = await fetch(`http://localhost:3000/user/${username}/transactions`);
+    const r = await res.json();
+    settransactions(r.transactions)
+  } 
+
   useEffect(() => {
     getData()
+    getTransactions()
   }, [])
 
   const handleDeposit = () => {

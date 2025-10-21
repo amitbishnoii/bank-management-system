@@ -32,6 +32,15 @@ const userSchema = new Schema({
     balance: { type: Number, default: 0 },
     createdAt: { type: Date, default: Date.now },
     accountNumber: { type: Number, unique: true },
+    transactions: [
+        {
+            type: { type: String, required: true },
+            amount: { type: Number, required: true },
+            recipient: { type: String },
+            date: { type: Date, default: Date.now },
+            balanceAfter: { type: Number }
+        }
+    ]
 });
 
 userSchema.pre("save", function (next) {

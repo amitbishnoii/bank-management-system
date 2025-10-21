@@ -26,6 +26,22 @@ router.get("/:username/dashboard", async (req, res) => {
     }
 })
 
+router.get("/:username/transactions", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username })
+
+        if(!user) {
+            res.status(404).json({message: "User not found!", success: false});
+        }
+        else {
+            res.status(200).json({ success: true, transactions: user.transactions })
+        }
+
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
 router.post("/register", async (req, res) => {
     try {
         const user = new User(req.body)
@@ -71,6 +87,21 @@ router.post("/:username/withdraw", async (req, res) => {
                 { $inc: { balance: -req.body.amount } },
                 { new: true }
             );
+            await User.findOneAndUpdate(
+                { username: req.params.username },
+                {
+                    $inc: { balance: -req.body.amount },
+                    $push: {
+                        transactions: {
+                            type: "withdraw",
+                            amount: req.body.amount,
+                            recipient: "Self",
+                            balanceAfter: user.balance - req.body.amount
+                        }
+                    }
+                },
+                { new: true }
+            );
             res.status(200).json({ message: "Withdraw Success!", current_balance: updatedUser.balance, success: true })
         }
     } catch (error) {
@@ -100,11 +131,9 @@ router.post("/login", async (req, res) => {
 router.post("/:username/transfer", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
-        // console.log("user to send money: ", user);
 
         if (user) {
             const status = await User.findOne({ accountNumber: req.body.accountNumber });
-            // console.log("user to recieve money: ", status);
             if (status) {
                 console.log(req.body.amount);
                 const withdraw = await User.findOneAndUpdate(
@@ -119,12 +148,12 @@ router.post("/:username/transfer", async (req, res) => {
                     { new: true }
                 );
 
-                res.status(200).json({message: "Transfer Success!", withdraw, deposit, success: true})
+                res.status(200).json({ message: "Transfer Success!", withdraw, deposit, success: true })
 
             }
 
             else {
-                res.status(404).json({message: "Transfer Failed! Check account number.", success: false})
+                res.status(404).json({ message: "Transfer Failed! Check account number.", success: false })
             }
         }
         else {
