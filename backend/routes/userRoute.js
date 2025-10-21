@@ -148,7 +148,7 @@ router.post("/:username/transfer", async (req, res) => {
                             transactions: {
                                 type: "transfer",
                                 amount: req.body.transferAmount,
-                                recipient: req.body.accountNumber,
+                                recipient: status.username,
                                 balanceAfter: user.balance - req.body.transferAmount
                             }
                         }

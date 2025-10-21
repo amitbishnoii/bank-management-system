@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "../CSS/Dashboard.css"
 import { useNavigate, useParams } from 'react-router-dom';
+import { format } from "date-fns"
 
 const Dashboard = () => {
   const [userData, setuserData] = useState(null)
@@ -26,18 +27,6 @@ const Dashboard = () => {
     getData()
     getTransactions()
   }, [])
-
-  const handleDeposit = () => {
-    navigate(`/${username}/deposit`)
-  }
-
-  const handleWithdraw = () => {
-    navigate(`/${username}/withdraw`)
-  }
-
-  const handleTransfer = () => {
-    navigate(`/${username}/transfer`)
-  }
 
   return (
   <div className="dashboard">
@@ -71,6 +60,7 @@ const Dashboard = () => {
           <thead>
             <tr>
               <th>Type</th>
+              <th>Info</th>
               <th>Amount (₹)</th>
               <th>Date</th>
             </tr>
@@ -81,25 +71,21 @@ const Dashboard = () => {
                 <td
                   style={{
                     color:
-                      tx.type === "Deposit"
+                      tx.type === "deposit"
                         ? "#22c55e"
-                        : tx.type === "Withdraw"
+                        : tx.type === "withdraw"
                           ? "#ef4444"
                           : "#60a5fa",
                   }}>
                   {tx.type}
                 </td>
+                <td>{tx.recipient}</td>
                 <td>₹{tx.amount}</td>
-                <td>{tx.date}</td>
+                <td>{format(new Date(tx.date), "dd MMM yyyy, hh:mm a")}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="action-buttons">
-        <button onClick={handleWithdraw}><span>Withdraw</span></button>
-        <button onClick={handleDeposit}><span>Deposit</span></button>
-        <button onClick={handleTransfer}><span>Transfer</span></button>
       </div>
     </div>
   </div>

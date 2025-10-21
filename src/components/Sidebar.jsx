@@ -3,10 +3,13 @@ import { BsBank } from "react-icons/bs";
 import { MdSpaceDashboard, MdPayment } from "react-icons/md";
 import { IoMdSettings, IoIosLogOut } from "react-icons/io";
 import { FaGithub } from "react-icons/fa";
+import { BiMoneyWithdraw } from "react-icons/bi";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import "../CSS/Sidebar.css"
 import { useNavigate } from "react-router-dom";
 
-const Sidebar = ({className, username}) => {
+const Sidebar = ({ className, username }) => {
 
   const navigate = useNavigate()
   const userName = username;
@@ -23,6 +26,18 @@ const Sidebar = ({className, username}) => {
     window.open("https://github.com/amitbishnoii/bank-management-system")
   }
 
+  const handleDeposit = () => {
+    navigate(`/${username}/deposit`)
+  }
+
+  const handleWithdraw = () => {
+    navigate(`/${username}/withdraw`)
+  }
+
+  const handleTransfer = () => {
+    navigate(`/${username}/transfer`)
+  }
+
   return (
 
     <div className={`sidebar ${className ? className : ""}`}>
@@ -33,7 +48,9 @@ const Sidebar = ({className, username}) => {
 
       <div className="sidebar-buttons">
         <button onClick={handleDashboard}><MdSpaceDashboard size={20} /> Dashboard</button>
-        <button><MdPayment size={20} /> Payments</button>
+        <button onClick={handleTransfer}><FaMoneyBillTransfer size={20} /> Transfer Money</button>
+        <button onClick={handleWithdraw}><BiMoneyWithdraw size={20} /> Withdraw</button>
+        <button onClick={handleDeposit}><FaMoneyBillTrendUp size={20} /> Deposit</button>
         <button onClick={handleGit}><FaGithub size={20} />Github</button>
         <button onClick={handleLogout}><IoIosLogOut size={20} /> Logout</button>
       </div>
