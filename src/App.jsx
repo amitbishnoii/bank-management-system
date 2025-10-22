@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Withdraw from "./pages/Withdraw";
 import Transfer from "./pages/Transfer";
 import Layout from "./components/Layout";
+import Admin from "./pages/Admin";
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
           } />
         </Routes>
       </Router>
+      <Admin />
     </>
   )
 }
