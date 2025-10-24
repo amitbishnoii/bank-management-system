@@ -41,8 +41,19 @@ const Admin = () => {
             {user ? (<div className="user-info">
                 <h3>{user.username}'s Info</h3>
                 <div className="info">
-                    <p>First Name: {user.firstName}</p>
+                    <p><strong>Username:</strong> <span>{user.username}</span></p>
+                    <p><strong>Name:</strong> <span>{user.firstName} {user.lastName}</span></p>
+                    <p><strong>Email:</strong> <span>{user.email}</span></p>
+                    <p><strong>Account Number:</strong> <span>{user.accountNumber}</span></p>
+
+                    <div className="info-actions">
+                        <button className="action-btn edit">Edit User</button>
+                        <button className="action-btn reset">Reset Password</button>
+                        <button className="action-btn block">Block Account</button>
+                        <button className="action-btn delete">Delete Account</button>
+                    </div>
                 </div>
+
                 <div className="transactions-table">
                     <h2>{user.username}'s Transactions</h2>
                     <table>
