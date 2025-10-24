@@ -4,6 +4,20 @@ import bcrypt from "bcrypt"
 
 const router = express.Router()
 
+router.get("/admin/info/:username", async (req, res) => {
+    try {
+        const user = await User.findOne({username: req.params.username})
+        if (!user) {
+            res.status(404).json({message: "user not found", success: false})
+        } else {
+            res.status(200).json({message: "user found", success: true, userInfo: user})
+        }
+    }
+    catch(err) {
+        res.status(500).json({message: `server error: ${err.message}`, success: false})
+    }
+})
+
 router.get("/:username", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
@@ -188,5 +202,6 @@ router.post("/:username/transfer", async (req, res) => {
         return res.status(500).json({ message: error.message, success: false })
     }
 })
+
 
 export default router

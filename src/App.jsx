@@ -32,12 +32,12 @@ function App() {
           } />
           <Route path="/:username/withdraw" element={
             <Layout>
-              <Withdraw/>
+              <Withdraw />
             </Layout>
           } />
           <Route path="/:username/transfer" element={
             <Layout>
-              <Transfer/>
+              <Transfer />
             </Layout>
           } />
         </Routes>
