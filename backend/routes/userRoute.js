@@ -32,10 +32,29 @@ router.put("/admin/:username/edit", async (req, res) => {
                 email: req.body.email
             },
                 { new: true });
-            res.status(200).json({message: "Edit Success!", editedUser, success: true})
+            res.status(200).json({ message: "Edit Success!", editedUser, success: true })
         }
     } catch (error) {
-        res.status(404).json({ message: error.message, success: false })
+        res.status(500).json({ message: error.message, success: false })
+    }
+})
+
+router.post("/admin/:username/blockUser", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username })
+        if (!user) {
+            res.status(404).json({ message: "User not found!", success: false })
+        }
+        else {
+            await User.findOneAndUpdate({ username: req.params.username }, {
+                $set: {
+                    isBlocked: true
+                }
+            })
+            res.status(200).json({message: "User Blocked!", success: true})
+        }
+    } catch (error) {
+        res.status(500).json({message: error.message, success: false})
     }
 })
 

@@ -46,6 +46,17 @@ const Admin = () => {
         setIsEditing(false);
     };
 
+    const handleBlock = async () => {
+        const res = await fetch(`http://localhost:3000/user/admin/${user.username}/blockUser`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        const r = await res.json();
+        console.log(r);
+    }
+
     return (
         <div className="admin-container">
 
@@ -113,8 +124,7 @@ const Admin = () => {
                         ) : (
                             <>
                                 <button onClick={() => setIsEditing(true)} className="action-btn edit">Edit User</button>
-                                <button className="action-btn reset">Reset Password</button>
-                                <button className="action-btn block">Block Account</button>
+                                <button onClick={handleBlock} className="action-btn block">Block Account</button>
                                 <button className="action-btn delete">Delete Account</button>
                             </>
                         )}

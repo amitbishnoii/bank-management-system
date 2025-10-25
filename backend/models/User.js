@@ -30,6 +30,7 @@ const userSchema = new Schema({
         minlength: [8, "Password must be at least 8 characters"],
     },
     balance: { type: Number, default: 0 },
+    isBlocked: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
     accountNumber: { type: Number, unique: true },
     transactions: [
