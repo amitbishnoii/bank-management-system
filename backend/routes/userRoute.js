@@ -6,15 +6,36 @@ const router = express.Router()
 
 router.get("/admin/info/:username", async (req, res) => {
     try {
-        const user = await User.findOne({username: req.params.username})
+        const user = await User.findOne({ username: req.params.username })
         if (!user) {
-            res.status(404).json({message: "user not found", success: false})
+            res.status(404).json({ message: "user not found", success: false })
         } else {
-            res.status(200).json({message: "user found", success: true, userInfo: user})
+            res.status(200).json({ message: "user found", success: true, userInfo: user })
         }
     }
-    catch(err) {
-        res.status(500).json({message: `server error: ${err.message}`, success: false})
+    catch (err) {
+        res.status(500).json({ message: `server error: ${err.message}`, success: false })
+    }
+})
+
+router.put("/admin/:username/edit", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username })
+        if (!user) {
+            res.status(404).json({ message: "User not found!", success: false })
+        }
+        else {
+            const editedUser = await User.findOneAndUpdate({ username: req.params.username }, {
+                username: req.body.username,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email
+            },
+                { new: true });
+            res.status(200).json({message: "Edit Success!", editedUser, success: true})
+        }
+    } catch (error) {
+        res.status(404).json({ message: error.message, success: false })
     }
 })
 

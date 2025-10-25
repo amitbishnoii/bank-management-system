@@ -105,6 +105,23 @@
   /* flex-wrap: wrap; */
 }
 
+.info input {
+  color: white;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  background-color: rgba(41, 41, 41, 0.05);;
+  border-radius: 5px;
+  width: 220px;
+  font-size: 14px;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.info input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74,144,226,0.5);
+}
+
 .action-btn {
   padding: 8px 18px;
   border: none;
