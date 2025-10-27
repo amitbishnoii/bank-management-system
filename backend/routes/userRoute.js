@@ -89,6 +89,7 @@ router.get("/:username", async (req, res) => {
 router.get("/:username/dashboard", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username })
+        if(!user) {res.status(404).json({ message: "User not found!", success: false })}
         res.status(200).json({ success: true, user })
     } catch (error) {
         res.status(500).json({ message: error.message })
@@ -132,7 +133,11 @@ router.post("/:username/deposit", async (req, res) => {
         const user = await User.findOne({ username: req.params.username });
         if (!user) {
             res.status(404).json({ message: "User not found!", success: false })
-        } else {
+        } 
+        else if (user.isBlocked){
+            res.status(403).json({ message: "Account is blocked", success: false})
+        }
+        else {
             await User.findOneAndUpdate(
                 { username: req.params.username },
                 {
@@ -160,7 +165,11 @@ router.post("/:username/withdraw", async (req, res) => {
         const user = await User.findOne({ username: req.params.username });
         if (!user) {
             res.status(404).json({ message: "User not found!", success: false })
-        } else {
+        } 
+        else if (user.isBlocked){
+            res.status(403).json({ message: "Account is blocked", success: false})
+        }
+        else {
             await User.findOneAndUpdate(
                 { username: req.params.username },
                 {
@@ -187,14 +196,18 @@ router.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.body.username })
         if (!user) {
-            return res.status(404).json({ message: "User not found", success: false })
+            res.status(404).json({ message: "User not found", success: false })
+        }
+        else if (user.isBlocked){
+            res.status(403).json({ message: "Account is blocked", success: false})
         }
         else {
-            const status = bcrypt.compare(req.body.password, user.password)
+            const status = await bcrypt.compare(req.body.password, user.password)
+            console.log(status);
             if (status) {
-                return res.status(200).json({ message: "Login Success!", user, success: true })
+                res.status(200).json({ message: "Login Success!", user, success: true })
             } else {
-                return res.status(401).json({ message: "Incorrect password", success: false })
+                res.status(401).json({ message: "Incorrect password", success: false })
             }
         }
     } catch (error) {

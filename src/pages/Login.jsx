@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import "../CSS/Login.css"
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+    const [error, seterror] = useState(null)
     const {
         register,
         handleSubmit,
@@ -21,6 +22,9 @@ const Login = () => {
         if (r.success) {
             navigate(`/${r.user.username}/dashboard`)
         }
+        else {
+            seterror(r.message);
+        }
     }
 
     return (
@@ -36,6 +40,7 @@ const Login = () => {
                     {errors.firstname?.type === "required" && <p className='error-message'>First name is required</p>}
                     {errors.firstname?.type === "minLength" && <p className='error-message'>Min Length is 4</p>}
                     {errors.firstname?.type === "pattern" && <p className='error-message'>Username can only contain letters, numbers, or underscore</p>}
+                    {error && <p className='error-message'>{error}</p>}
                     <br />
 
                     <input {...register('password', {
