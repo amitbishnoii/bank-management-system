@@ -53,6 +53,7 @@
 
 .input-group input {
   padding: 12px;
+  margin-bottom: 5px;
   border: 1px solid #334155;
   border-radius: 8px;
   outline: none;

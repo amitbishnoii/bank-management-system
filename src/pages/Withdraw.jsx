@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Sidebar from "../components/Sidebar";
 import "../CSS/Withdraw.css";
 import { useParams } from "react-router-dom";
 
 const Withdraw = () => {
   const [amount, setAmount] = useState("");
+  const [error, seterror] = useState(null)
   const { username } = useParams()
 
   const handleWithdraw = async (e) => {
@@ -14,8 +14,8 @@ const Withdraw = () => {
       body: JSON.stringify({ amount }),
       headers: { "Content-Type": "application/json" }
     });
-    // const r = await res.json();
-    alert(`Withdraw request for ₹${amount} submitted!`);
+    const r = await res.json();
+    seterror(r.message);
     setAmount("");
   };
 
@@ -34,6 +34,7 @@ const Withdraw = () => {
                 placeholder="Enter amount to withdraw"
                 required
               />
+              {error && <p className="error-message">{error}</p>}
             </div>
             <button className="submit-button" type="submit">Withdraw</button>
           </form>

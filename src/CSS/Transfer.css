@@ -1,5 +1,3 @@
-/* Transfer.css */
-
 .transfer-container {
   display: flex;
   flex-direction: column;
@@ -57,6 +55,11 @@
   background-color: #1e293b;
   color: #f1f5f9;
   transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.error-class {
+  color: red;
+  font-size: small;
 }
 
 .input-group input::placeholder {

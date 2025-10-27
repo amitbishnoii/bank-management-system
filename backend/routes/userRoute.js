@@ -51,25 +51,25 @@ router.post("/admin/:username/blockUser", async (req, res) => {
                     isBlocked: true
                 }
             })
-            res.status(200).json({message: "User Blocked!", success: true})
+            res.status(200).json({ message: "User Blocked!", success: true })
         }
     } catch (error) {
-        res.status(500).json({message: error.message, success: false})
+        res.status(500).json({ message: error.message, success: false })
     }
 })
 
 router.delete("/admin/:username/delete", async (req, res) => {
     try {
-        const user = await User.findOne({username: req.params.username});
-        if(!user) {
-            res.status(404).json({message: "User not found!", success: false})
+        const user = await User.findOne({ username: req.params.username });
+        if (!user) {
+            res.status(404).json({ message: "User not found!", success: false })
         }
         else {
-            await User.findOneAndDelete({username: req.params.username});
-            res.status(200).json({message: "User deleted!", success: true})
+            await User.findOneAndDelete({ username: req.params.username });
+            res.status(200).json({ message: "User deleted!", success: true })
         }
     } catch (error) {
-        res.status(500).json({message: error.message, success: false})
+        res.status(500).json({ message: error.message, success: false })
     }
 })
 
@@ -89,7 +89,7 @@ router.get("/:username", async (req, res) => {
 router.get("/:username/dashboard", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username })
-        if(!user) {res.status(404).json({ message: "User not found!", success: false })}
+        if (!user) { res.status(404).json({ message: "User not found!", success: false }) }
         res.status(200).json({ success: true, user })
     } catch (error) {
         res.status(500).json({ message: error.message })
@@ -133,9 +133,9 @@ router.post("/:username/deposit", async (req, res) => {
         const user = await User.findOne({ username: req.params.username });
         if (!user) {
             res.status(404).json({ message: "User not found!", success: false })
-        } 
-        else if (user.isBlocked){
-            res.status(403).json({ message: "Account is blocked", success: false})
+        }
+        else if (user.isBlocked) {
+            res.status(403).json({ message: "Account is blocked", success: false })
         }
         else {
             await User.findOneAndUpdate(
@@ -165,11 +165,11 @@ router.post("/:username/withdraw", async (req, res) => {
         const user = await User.findOne({ username: req.params.username });
         if (!user) {
             res.status(404).json({ message: "User not found!", success: false })
-        } 
-        else if (user.isBlocked){
-            res.status(403).json({ message: "Account is blocked", success: false})
         }
-        else {
+        else if (user.isBlocked) {
+            res.status(403).json({ message: "Account is blocked", success: false })
+        }
+        else if (user.balance > req.body.amount) {
             await User.findOneAndUpdate(
                 { username: req.params.username },
                 {
@@ -187,6 +187,9 @@ router.post("/:username/withdraw", async (req, res) => {
             );
             res.status(200).json({ message: "Withdraw Success!", current_balance: user.balance, success: true })
         }
+        else {
+            res.status(400).json({ message: "Insufficient Balance!", success: false})
+        }
     } catch (error) {
         res.status(500).json({ message: error.message, success: false })
     }
@@ -198,8 +201,8 @@ router.post("/login", async (req, res) => {
         if (!user) {
             res.status(404).json({ message: "User not found", success: false })
         }
-        else if (user.isBlocked){
-            res.status(403).json({ message: "Account is blocked", success: false})
+        else if (user.isBlocked) {
+            res.status(403).json({ message: "Account is blocked", success: false })
         }
         else {
             const status = await bcrypt.compare(req.body.password, user.password)
@@ -218,56 +221,56 @@ router.post("/login", async (req, res) => {
 router.post("/:username/transfer", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
+        const reciever = await User.findOne({ accountNumber: req.body.accountNumber });
 
-        if (user) {
-            const status = await User.findOne({ accountNumber: req.body.accountNumber });
-            if (status) {
-                const withdraw = await User.findOneAndUpdate(
-                    { username: req.params.username },
-                    {
-                        $inc: { balance: -req.body.transferAmount },
-                        $push: {
-                            transactions: {
-                                type: "transfer",
-                                amount: req.body.transferAmount,
-                                recipient: status.username,
-                                balanceAfter: user.balance - req.body.transferAmount
-                            }
+        if (!reciever) {
+            res.status(404).json({ message: "User not Found, Check Account Number!", success: false })
+        }
+
+        else if (reciever.isBlocked) {
+            res.status(403).json({ message: "Account is blocked", success: false })
+        }
+
+        else if (user.balance > req.body.transferAmount) {
+            const withdraw = await User.findOneAndUpdate(
+                { username: req.params.username },
+                {
+                    $inc: { balance: -req.body.transferAmount },
+                    $push: {
+                        transactions: {
+                            type: "transfer",
+                            amount: req.body.transferAmount,
+                            recipient: status.username,
+                            balanceAfter: user.balance - req.body.transferAmount
                         }
-                    },
-                    { new: true }
-                );
+                    }
+                },
+                { new: true }
+            );
 
-                const deposit = await User.findOneAndUpdate(
-                    { accountNumber: req.body.accountNumber },
-                    {
-                        $inc: { balance: req.body.transferAmount },
-                        $push: {
-                            transactions: {
-                                type: "recieved",
-                                amount: req.body.transferAmount,
-                                sender: req.params.username,
-                                balanceAfter: user.balance - req.body.transferAmount
-                            }
+            const deposit = await User.findOneAndUpdate(
+                { accountNumber: req.body.accountNumber },
+                {
+                    $inc: { balance: req.body.transferAmount },
+                    $push: {
+                        transactions: {
+                            type: "recieved",
+                            amount: req.body.transferAmount,
+                            sender: req.params.username,
+                            balanceAfter: user.balance - req.body.transferAmount
                         }
-                    },
-                    { new: true }
-                );
-
-                res.status(200).json({ message: "Transfer Success!", withdraw, deposit, success: true })
-
-            }
-
-            else {
-                res.status(404).json({ message: "Transfer Failed! Check account number.", success: false })
-            }
+                    }
+                },
+                { new: true }
+            );
+            res.status(200).json({ message: "Transfer Success!", withdraw, deposit, success: true })
         }
         else {
-            return res.status(404).json({ message: "User not found", success: false })
+            res.status(400).json({ message: "Insufficient Balance!", success: false })
         }
 
     } catch (error) {
-        return res.status(500).json({ message: error.message, success: false })
+        res.status(500).json({ message: error.message, success: false })
     }
 })
 

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 const Transfer = () => {
     const [accountNumber, setaccountNumber] = useState()
     const [transferAmount, settransferAmount] = useState()
+    const [error, seterror] = useState(null)
     const { username } = useParams()
 
     const handleClick = async () => {
@@ -15,8 +16,8 @@ const Transfer = () => {
             headers: { "Content-Type": "application/json" }
         });
         const r = await res.json();
-        console.log(r);
-        
+        seterror(r.message);
+        // console.log(r);
     }
 
     return (
@@ -34,6 +35,7 @@ const Transfer = () => {
                             placeholder="Enter account number"
                             onChange={e => setaccountNumber(e.target.value)}
                         />
+                        {error && <p className='error-class'>{error}</p>}
                     </div>
 
                     <div className="input-group">
