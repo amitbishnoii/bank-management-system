@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "../CSS/Admin.css"
 import { format } from 'date-fns';
 
 const Admin = () => {
+    const [refresh, setrefresh] = useState(0)
     const [block, setblock] = useState(false)
     const [error, seterror] = useState(null)
     const [inputuser, setinputuser] = useState()
@@ -12,6 +13,11 @@ const Admin = () => {
     const [formData, setFormData] = useState({ ...user })
 
     const LoginTime = useRef(format(new Date(), "dd MMM yyyy, hh:mm:ss a"))
+
+    useEffect(() => {
+      
+    }, [refresh])
+    
 
     const handleSubmit = async () => {
         setuser(inputuser);
@@ -37,6 +43,7 @@ const Admin = () => {
         })
         const r = await res.json();
         seterror(r.message)
+        setrefresh(1);
         setIsEditing(false);
     };
 

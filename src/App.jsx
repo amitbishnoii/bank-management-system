@@ -40,9 +40,11 @@ function App() {
               <Transfer />
             </Layout>
           } />
+          <Route path="/adminPage" element={
+              <Admin />
+          } />
         </Routes>
       </Router>
-      <Admin />
     </>
   )
 }
