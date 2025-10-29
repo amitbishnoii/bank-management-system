@@ -3,11 +3,13 @@ import "../CSS/Admin.css"
 import { format } from 'date-fns';
 
 const Admin = () => {
+    const [block, setblock] = useState(false)
+    const [error, seterror] = useState(null)
     const [inputuser, setinputuser] = useState()
     const [user, setuser] = useState();
     const [transaction, settransaction] = useState([])
     const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState({ ...user });
+    const [formData, setFormData] = useState({ ...user })
 
     const LoginTime = useRef(format(new Date(), "dd MMM yyyy, hh:mm:ss a"))
 
@@ -17,10 +19,7 @@ const Admin = () => {
         const r = await res.json()
         const { transactions, ...userInfo } = r.userInfo
         settransaction(transactions)
-        console.log("trans: ", transactions)
-        console.log("info ", userInfo);
         setuser(userInfo)
-        console.log(transaction);
     }
 
     const handleChange = (e) => {
@@ -37,7 +36,7 @@ const Admin = () => {
             }
         })
         const r = await res.json();
-        console.log(r);
+        seterror(r.message)
         setIsEditing(false);
     };
 
@@ -54,7 +53,20 @@ const Admin = () => {
             }
         })
         const r = await res.json();
-        console.log(r);
+        setblock(true)
+        seterror(r.message);
+    }
+
+    const handleUnBlock = async () => {
+        const res = await fetch(`http://localhost:3000/user/admin/${user.username}/unblockUser`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        const r = await res.json();
+        setblock(false)
+        seterror(r.message);
     }
 
     const handleDelete = async () => {
@@ -65,7 +77,7 @@ const Admin = () => {
             }
         })
         const r = await res.json();
-        console.log(r);
+        seterror(r.message)
     }
 
     return (
@@ -126,6 +138,8 @@ const Admin = () => {
                         <strong>Account Number:</strong> <span>{user.accountNumber}</span>
                     </p>
 
+                    {error && <p className='error-message'>{error}</p>}
+
                     <div className="info-actions">
                         {isEditing ? (
                             <>
@@ -135,7 +149,7 @@ const Admin = () => {
                         ) : (
                             <>
                                 <button onClick={() => setIsEditing(true)} className="action-btn edit">Edit User</button>
-                                <button onClick={handleBlock} className="action-btn block">Block Account</button>
+                                {block? <button onClick={handleUnBlock} className="action-btn block">Unblock Account</button>: <button onClick={handleBlock} className="action-btn block">Block Account</button>}
                                 <button onClick={handleDelete} className="action-btn delete">Delete Account</button>
                             </>
                         )}

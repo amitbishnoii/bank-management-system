@@ -58,6 +58,25 @@ router.post("/admin/:username/blockUser", async (req, res) => {
     }
 })
 
+router.post("/admin/:username/unblockUser", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username })
+        if (!user) {
+            res.status(404).json({ message: "User not found!", success: false })
+        }
+        else {
+            await User.findOneAndUpdate({ username: req.params.username }, {
+                $set: {
+                    isBlocked: false
+                }
+            })
+            res.status(200).json({ message: "User Unblocked!", success: true })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message, success: false })
+    }
+})
+
 router.delete("/admin/:username/delete", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
