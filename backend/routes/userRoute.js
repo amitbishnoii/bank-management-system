@@ -4,6 +4,7 @@ import bcrypt from "bcrypt"
 
 const router = express.Router()
 
+
 router.get("/admin/info/:username", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username })
@@ -217,7 +218,6 @@ router.post("/:username/withdraw", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.body.username })
-        console.log(req.body.username, req.body.password);
         if (req.body.username === "admin" && req.body.password === "adminpagepassword") {
             res.status(200).json({ message: "Admin User logged in", admin: true})
         }
@@ -229,7 +229,6 @@ router.post("/login", async (req, res) => {
         }
         else {
             const status = await bcrypt.compare(req.body.password, user.password)
-            console.log(status);
             if (status) {
                 res.status(200).json({ message: "Login Success!", user, success: true })
             } else {
