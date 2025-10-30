@@ -10,7 +10,7 @@ const Transfer = () => {
 
     const handleClick = async () => {
         console.log(transferAmount);
-        const res = await fetch(`http://localhost:3000/user/${username}/transfer`, {
+        const res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/${username}/transfer`, {
             method: "POST",
             body: JSON.stringify({ transferAmount, accountNumber }),
             headers: { "Content-Type": "application/json" }

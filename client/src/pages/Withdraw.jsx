@@ -9,7 +9,7 @@ const Withdraw = () => {
 
   const handleWithdraw = async (e) => {
     e.preventDefault();
-    const res = await fetch(`http://localhost:3000/user/${username}/withdraw/`, {
+    const res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/${username}/withdraw/`, {
       method: "POST",
       body: JSON.stringify({ amount }),
       headers: { "Content-Type": "application/json" }

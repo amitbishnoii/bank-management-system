@@ -21,7 +21,7 @@ const Admin = () => {
 
     const handleSubmit = async () => {
         setuser(inputuser);
-        const res = await fetch(`http://localhost:3000/user/admin/info/${inputuser}`)
+        const res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/admin/info/${inputuser}`)
         const r = await res.json()
         const { transactions, ...userInfo } = r.userInfo
         settransaction(transactions)
@@ -34,7 +34,7 @@ const Admin = () => {
     };
 
     const handleSave = async () => {
-        const res = await fetch(`http://localhost:3000/user/admin/${user.username}/edit`, {
+        const res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/admin/${user.username}/edit`, {
             method: "PUT",
             body: JSON.stringify(formData),
             headers: {
@@ -53,7 +53,7 @@ const Admin = () => {
     };
 
     const handleBlock = async () => {
-        const res = await fetch(`http://localhost:3000/user/admin/${user.username}/blockUser`, {
+        const res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/admin/${user.username}/blockUser`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const Admin = () => {
     }
 
     const handleUnBlock = async () => {
-        const res = await fetch(`http://localhost:3000/user/admin/${user.username}/unblockUser`, {
+        const res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/admin/${user.username}/unblockUser`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ const Admin = () => {
     }
 
     const handleDelete = async () => {
-        const res = await fetch(`http://localhost:3000/user/admin/${user.username}/delete`, {
+        const res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/admin/${user.username}/delete`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',

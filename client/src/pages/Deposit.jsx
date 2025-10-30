@@ -11,7 +11,7 @@ const DepositPage = () => {
 
     useEffect(() => {
         async function fetchdata() {
-            const res = await fetch(`http://localhost:3000/user/${username}/`)
+            const res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/${username}/`)
             const r = await res.json();
             setBalance(r.user.balance);
         }
@@ -19,7 +19,7 @@ const DepositPage = () => {
     }, []);
 
     const handleDeposit = async () => {
-        const res = await fetch(`http://localhost:3000/user/${username}/deposit/`, {
+        const res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/${username}/deposit/`, {
             method: "POST",
             body: JSON.stringify({amount}),
             headers: { "Content-Type": "application/json" }

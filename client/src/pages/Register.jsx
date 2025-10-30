@@ -13,7 +13,7 @@ const Register = () => {
 
     const onSubmit = async (data) => {
         console.log("request data: ", data);
-        let res = await fetch("http://localhost:3000/user/register", {
+        let res = await fetch("https://bank-management-system-4l0o.onrender.com/user/register", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }

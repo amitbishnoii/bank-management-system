@@ -13,7 +13,7 @@ const Login = () => {
     const navigate = useNavigate()
 
     const onSubmit = async (data) => {
-        let res = await fetch("http://localhost:3000/user/login", {
+        let res = await fetch("https://bank-management-system-4l0o.onrender.com/user/login", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }

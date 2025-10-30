@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "../CSS/Dashboard.css"
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { format } from "date-fns"
 
 const Dashboard = () => {
@@ -9,16 +9,15 @@ const Dashboard = () => {
 
   ]);
   const { username } = useParams()
-  const navigate = useNavigate()
 
   const getData = async () => {
-    let res = await fetch(`http://localhost:3000/user/${username}/dashboard`);
+    let res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/${username}/dashboard`);
     let r = await res.json()
     setuserData(r.user)
   }
 
   const getTransactions = async () => {
-    const res = await fetch(`http://localhost:3000/user/${username}/transactions`);
+    const res = await fetch(`https://bank-management-system-4l0o.onrender.com/user/${username}/transactions`);
     const r = await res.json();
     settransactions(r.transactions)
   }
